@@ -34,6 +34,9 @@ export default {
     },
     finishPullUp(){
       this.scroll.finishPullUp()
+    },
+    refresh(){
+     this.scroll && this.scroll.refresh()
     }
   },
   mounted() {

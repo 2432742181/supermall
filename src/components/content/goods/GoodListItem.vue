@@ -1,6 +1,6 @@
 <template>
-  <div class="goods-list-item">
-    <img v-bind:src="goodsItem.picUrl" alt="">
+  <div class="goods-list-item" v-on:click="goodClick">
+    <img v-bind:src="goodsItem.picUrl" alt="" @load="imageLoad">
     <div>
       <p>{{goodsItem.title}}</p>
       <span class="time">{{goodsItem.ctime}}</span>
@@ -10,14 +10,38 @@
 </template>
 
 <script>
+// import router from '@/router'
 export default {
   name: "GoodListItem",
-  props: {
-    goodsItem: {
-      type: Object,
-      default(){
-        return {}
-      }
+  // props: {
+  //   goodsItem: {
+  //     type: Object,
+  //     default(){
+  //       return {}
+  //     }
+  //   }
+  // },
+  props:['goodsItem'],
+  data(){
+    return {
+      id:this.goodsItem.id+(Date.now())
+    }
+  },
+  methods: {
+    imageLoad(){
+      // console.log('图片加载完成');
+      this.$bus.$emit('imageload')
+    },
+    goodClick(){
+      this.getPath(this.id)
+
+    },
+    getPath(path){
+      // router.push('/detail/'+path)
+     
+      this.$router.push('/detail/' + this.id)
+
+
     }
   }
 
